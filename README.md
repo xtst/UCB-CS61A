@@ -2,6 +2,8 @@
 cs61A from UCBerkley
 
 # Version
-**21-fall**
+Video: **21-fall**
 
-Here's the url: https://inst.eecs.berkeley.edu/~cs61a/fa21
+Homework, labs and slides: **22-spring**
+
+Here's the url: https://cs61a.org/

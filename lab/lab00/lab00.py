@@ -5,4 +5,7 @@ def twenty_twenty_one():
     >>> twenty_twenty_one()
     2021
     """
-    return ______
+
+    a = 2021
+
+    return a
