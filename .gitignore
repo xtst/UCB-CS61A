@@ -139,3 +139,5 @@ dmypy.json
 delete_temp.sh
 
 temp.py
+
+parson/
