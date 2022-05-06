@@ -137,3 +137,5 @@ dmypy.json
 .ok_history
 
 delete_temp.sh
+
+temp.py
