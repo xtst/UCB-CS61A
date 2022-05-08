@@ -9,6 +9,6 @@ Homework, labs and slides: **22-spring**
 Here's the url: https://cs61a.org/
 
 # BTW
-i ignore parsons/
+I ignore parsons/
 
 And some parsons may be too easy for me so i just skipped them
