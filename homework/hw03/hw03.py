@@ -143,4 +143,25 @@ def count_coins(change):
     >>> check(HW_SOURCE_FILE, 'count_coins', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    # ans = 0
+    res = 0
+
+    def go(c, Min):
+        ans = 0
+        nonlocal res
+        if c == 0:
+            res += 1
+            return 0
+        if c >= 25 and Min >= 25:
+            ans += 1 + go(c - 25, 25)
+        if c >= 10 and Min >= 10:
+            ans += 1 + go(c - 10, 10)
+        if c >= 5 and Min >= 5:
+            ans += 1 + go(c - 5, 5)
+        if c >= 1 and Min >= 1:
+            ans += 1 + go(c - 1, 1)
+        # print(f"change:{c}, Min:{Min}: {ans}")
+        return ans
+
+    go(change, 25)
+    return res
