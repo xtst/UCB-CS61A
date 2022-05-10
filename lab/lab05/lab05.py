@@ -17,7 +17,25 @@ def flatten(s):
     >>> x
     [[1, [1, 1]], 1, [1, 1]]
     """
-    "*** YOUR CODE HERE ***"
+
+    def search(temp):
+        """return the flattened sublist"""
+        s = []
+        for i in range(0, len(temp)):
+            if type(temp[i]) == list:
+                s.extend(search(temp[i]))
+            else:
+                s.append(temp[i])
+        return s
+
+    temp = s[:]
+    s = []
+    for i in range(0, len(temp)):
+        if type(temp[i]) == list:
+            s.extend(search(temp[i]))
+        else:
+            s.append(temp[i])
+    return s
 
 
 def couple(s, t):
@@ -33,7 +51,6 @@ def couple(s, t):
     [['c', 's'], [6, '1']]
     """
     assert len(s) == len(t)
-    "*** YOUR CODE HERE ***"
 
 
 def insert_items(lst, entry, elem):
