@@ -51,6 +51,10 @@ def couple(s, t):
     [['c', 's'], [6, '1']]
     """
     assert len(s) == len(t)
+    temp = []
+    for i in range(0, len(s)):
+        temp.append([s[i], t[i]])
+    return temp
 
 
 def insert_items(lst, entry, elem):
@@ -79,7 +83,13 @@ def insert_items(lst, entry, elem):
     ...       ['List', 'ListComp', 'Slice'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    i = 0
+    while i < len(lst):
+        if lst[i] == entry:
+            lst.insert(i + 1, elem)
+            i += 1
+        i += 1
+    return lst
 
 
 def change_abstraction(change):
