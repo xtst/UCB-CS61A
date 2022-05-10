@@ -110,14 +110,13 @@ test = {
           >>> def total(s0, s1, player=None):
           ...     return player, str(s0 + s1)
           >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2, 5), goal=10, say=total)
-          46caef5ffd6d72c8757279cbcf01b12f
-          c42887e7b9ffe8fc26bb57b61329f916
-          872dbe4a4fe5d8451aa842c21194c866
-          26dad951f8e75106f151e4085e117edd
-          # locked
+          2
+          7
+          9
+          14
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
@@ -128,16 +127,15 @@ test = {
           >>> def echo_1(s0, s1, player=None):
           ...     return player, f"** {s1}" # message of the form: "** s1"
           >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2), goal=5, say=both(echo_0, echo_1))
-          3f321d5ce997d2f3989685f56de8bdce
-          4a64fe964dc771a219ed773c3a146c75
-          3f321d5ce997d2f3989685f56de8bdce
-          cad0f4cdee6d8af26abb184d977c50fd
-          493e127f779e284556086802640185a8
-          cad0f4cdee6d8af26abb184d977c50fd
-          # locked
+          * 2
+          ** 0
+          * 2
+          ** 4
+          * 8
+          ** 4
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {

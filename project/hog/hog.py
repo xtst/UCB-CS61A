@@ -1,6 +1,7 @@
 """CS 61A Presents The Game of Hog."""
 
 from cmath import inf
+from concurrent.futures import thread
 from multiprocessing.connection import answer_challenge
 from dice import six_sided, four_sided, make_test_dice
 from ucb import main, trace, interact
@@ -412,7 +413,21 @@ def final_strategy(score, opponent_score):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    return 6  # Remove this line once implemented.
+    num = 6
+    hefty = hefty_hogs(score, opponent_score)
+    hog = hog_pile(score + hefty, opponent_score)
+    if hog + hefty >= 8:
+        num = 0
+        if hog + hefty + score >= 100:
+            return 0
+    avg = 3.5
+    if (100 - score) <= 3:
+        num = 1
+    elif (100 - score) <= 5:
+        num = 2
+    elif (100 - score) <= 6:
+        num = 3
+    return num
     # END PROBLEM 12
 
 

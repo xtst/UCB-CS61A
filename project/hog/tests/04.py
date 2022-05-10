@@ -62,11 +62,10 @@ test = {
           'code': r"""
           >>> a = hog_pile(187, 187)
           >>> a # check that the value is being returned, not printed
-          c42887e7b9ffe8fc26bb57b61329f916
-          # locked
+          7
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
