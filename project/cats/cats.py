@@ -103,7 +103,21 @@ def accuracy(typed, reference):
     typed_words = split(typed)
     reference_words = split(reference)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    # if len(reference_words) == 0 and len(typed_words) == 0:
+    #     return 100.0
+    tr = 0
+    length = min(len(reference_words), len(typed_words))
+    for i in range(length):
+        if reference_words[i] == typed_words[i]:
+            tr += 1
+
+    if len(typed_words) == 0:
+        if len(reference_words) != 0:
+            return 0.0
+        else:
+            return 100.0
+    return tr / len(typed_words) * 100.0
+
     # END PROBLEM 3
 
 
@@ -121,7 +135,7 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, "Elapsed time must be positive"
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    return len(typed) / elapsed * 60.0 / 5
     # END PROBLEM 4
 
 
@@ -149,7 +163,17 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    ans = typed_word
+    mindiff = 100000
+    for i in word_list:
+        diff = diff_function(i, typed_word, limit)
+        if diff <= limit:
+            if mindiff > diff:
+                mindiff = diff
+                ans = i
+        if i == typed_word:
+            return i
+    return ans
     # END PROBLEM 5
 
 
@@ -176,7 +200,16 @@ def sphinx_swaps(start, goal, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, "Remove this line"
+    if start == "":
+        return len(goal)
+    if goal == "":
+        return len(start)
+    if start[0] == goal[0]:
+        return sphinx_swaps(start[1:], goal[1:], limit)
+    else:
+        if limit == 0:
+            return 100000
+        return 1 + sphinx_swaps(start[1:], goal[1:], limit - 1)
     # END PROBLEM 6
 
 
@@ -197,25 +230,26 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, "Remove this line"
-
-    if ______________:  # Fill in the condition
+    if limit < 0:
+        return 10000000
+    if start == "" or goal == "":  # Fill in the condition
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return max(len(start), len(goal))
         # END
 
-    elif ___________:  # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    if start == goal:
+        return 0
 
+    add = gonext = substitute = 1000000
+    if start[0] == goal[0]:
+        gonext = minimum_mewtations(start[1:], goal[1:], limit)
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        add = minimum_mewtations(goal[0] + start, goal, limit - 1) + 1
+        substitute = minimum_mewtations(goal[0] + start[1:], goal, limit - 1) + 1
+    remove = minimum_mewtations(start[1:], goal, limit - 1) + 1
+    return min(add, remove, substitute, gonext)
+    # BEGIN
+    # END
 
 
 def final_diff(start, goal, limit):
