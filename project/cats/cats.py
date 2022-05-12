@@ -230,6 +230,8 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
+    if limit > max(len(start), len(goal)):
+        limit = max(len(start), len(goal))
     if limit < 0:
         return 10000000
     if start == "" or goal == "":  # Fill in the condition
@@ -290,7 +292,15 @@ def report_progress(sofar, prompt, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    t = 0
+    for i in sofar:
+        if i != prompt[t]:
+            break
+        t += 1
+    p = t / len(prompt)
+    upload({"id": user_id, "progress": p})
+    # print(f"ID: {user_id} Progress: {p}")
+    return p
     # END PROBLEM 8
 
 
@@ -312,7 +322,13 @@ def time_per_word(words, times_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    times = []
+    for i in range(len(times_per_player)):
+        times.append([])
+        for j in range(len(times_per_player[i]) - 1):
+            times[i].append(times_per_player[i][j + 1] - times_per_player[i][j])
+    # print(times)
+    return match(words, times)
     # END PROBLEM 9
 
 
@@ -334,7 +350,24 @@ def fastest_words(match):
     player_indices = range(len(match["times"]))  # contains an *index* for each player
     word_indices = range(len(match["words"]))  # contains an *index* for each word
     # BEGIN PROBLEM 10
+    res = []
+    for i in player_indices:
+        res.append([])
+
+    def fast(word_idx, time_record):
+        scoreboard_word = []
+        for i in player_indices:
+            scoreboard_word.append(time_record[i][word_idx])
+        f = scoreboard_word.index(min(scoreboard_word))
+        return f
+
+    # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    for i in word_indices:
+        cur = match["words"][i]
+        fcur = fast(i, match["times"])
+        res[fcur].append(cur)
+    return res
     # END PROBLEM 10
 
 
