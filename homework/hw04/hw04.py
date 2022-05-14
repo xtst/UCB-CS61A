@@ -10,7 +10,17 @@ def merge(lst1, lst2):
     >>> merge([5, 7], [2, 4, 6])
     [2, 4, 5, 6, 7]
     """
-    "*** YOUR CODE HERE ***"
+    ans = []
+    index1 = 0
+    index2 = 0
+    while index1 < lst1.length and index2 < lst2.length:
+        if lst1[index1] < lst2[index2]:
+            ans.append(lst1[index1])
+        else:
+            ans.append(lst2[index2])
+        index1 += 1
+        index2 += 1
+    return ans
 
 
 class Mint:
@@ -42,6 +52,7 @@ class Mint:
     >>> dime.worth()     # 20 cents + (155 - 50 years)
     125
     """
+
     present_year = 2021
 
     def __init__(self):
@@ -109,4 +120,5 @@ class VendingMachine:
     >>> w.vend()
     'Here is your soda.'
     """
+
     "*** YOUR CODE HERE ***"
