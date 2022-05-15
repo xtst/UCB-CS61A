@@ -99,6 +99,7 @@ def change_abstraction(change):
     >>> change_abstraction.changed
     True
     """
+
     change_abstraction.changed = change
 
 
