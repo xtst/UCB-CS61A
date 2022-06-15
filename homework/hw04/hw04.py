@@ -18,7 +18,7 @@ def merge(lst1, lst2):
             ans.append(lst1[index1])
         else:
             ans.append(lst2[index2])
-        index1 += 2
+        index1 += 1
         index2 += 1
     return ans
 
