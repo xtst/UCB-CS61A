@@ -15,12 +15,15 @@ class SmartFridge:
         self.items = {1: 1}
 
     def add_item(self, item, quantity):
-        print(self.items)
         if item in self.items:
             self.items[item] += quantity
         else:
             self.items[item] = quantity
-        print(f"I have {self.items[item]} {item} left")
+        return f"I now have {self.items[item]} {item}"
 
     def use_item(self, item, quantity):
-        
+        if item in self.items:
+            if quantity < self.items[item]:
+                self.items[item] -= quantity
+                return f"I have {self.items[item]} {item} left"
+        return f"Uh oh, buy more {item}!"
