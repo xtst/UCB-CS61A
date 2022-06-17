@@ -13,12 +13,18 @@ def merge(lst1, lst2):
     ans = []
     index1 = 0
     index2 = 0
-    while index1 < lst1.length and index2 < lst2.length:
+    while index1 < len(lst1) and index2 < len(lst2):
         if lst1[index1] < lst2[index2]:
             ans.append(lst1[index1])
+            index1 += 1
         else:
             ans.append(lst2[index2])
+            index2 += 1
+    while index1 < len(lst1):
+        ans.append(lst1[index1])
         index1 += 1
+    while index2 < len(lst2):
+        ans.append(lst2[index2])
         index2 += 1
     return ans
 
@@ -59,10 +65,10 @@ class Mint:
         self.update()
 
     def create(self, coin):
-        "*** YOUR CODE HERE ***"
+        return coin(self.year)
 
     def update(self):
-        "*** YOUR CODE HERE ***"
+        self.year = Mint.present_year
 
 
 class Coin:
@@ -72,7 +78,7 @@ class Coin:
         self.year = year
 
     def worth(self):
-        "*** YOUR CODE HERE ***"
+        return self.cents + max((Mint.present_year - self.year - 50), 0)
 
 
 class Nickel(Coin):
@@ -120,4 +126,39 @@ class VendingMachine:
     'Here is your soda.'
     """
 
-    "*** YOUR CODE HERE ***"
+    def __init__(self, name, price):
+        self.stock = 0
+        self.funds = 0
+        self.name = name
+        self.price = price
+
+    def vend(self):
+        if self.stock == 0:
+            print("'Nothing left to vend. Please restock.'")
+        elif self.funds < self.price:
+            print(f"'You must add ${self.price - self.funds} more funds.'")
+        elif self.funds == self.price:
+            print(f"'Here is your {self.name}.'")
+            self.stock -= 1
+            self.funds = 0
+        else:
+            print(f"'Here is your {self.name} and ${self.funds - self.price} change.'")
+            self.stock -= 1
+            self.funds = 0
+
+    def add_funds(self, money):
+        self.funds += money
+        if self.stock == 0:
+            print(
+                f"'Nothing left to vend. Please restock. Here is your ${self.funds}.'"
+            )
+            self.funds = 0
+        else:
+            print(f"'Current balance: ${self.funds}'")
+
+    def restock(self, add_stock):
+        self.stock += add_stock
+        print(f"'Current {self.name} stock: {self.stock}'")
+
+    # def __str__(self) -> str:
+    #     return f"{self.name} Vending Machine"
