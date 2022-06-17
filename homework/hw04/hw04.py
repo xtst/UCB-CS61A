@@ -85,7 +85,6 @@ class Dime(Coin):
 
 class VendingMachine:
     """A vending machine that vends some product for some price.
-    ""
     >>> v = VendingMachine('candy', 10)
     >>> v.vend()
     'Nothing left to vend. Please restock.'
