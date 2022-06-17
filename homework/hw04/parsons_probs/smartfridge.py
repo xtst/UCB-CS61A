@@ -12,13 +12,15 @@ class SmartFridge:
     """
 
     def __init__(self):
-        self.items = {}
+        self.items = {1: 1}
 
     def add_item(self, item, quantity):
+        print(self.items)
         if item in self.items:
             self.items[item] += quantity
         else:
-            items[item] = quantity
+            self.items[item] = quantity
+        print(f"I have {self.items[item]} {item} left")
 
     def use_item(self, item, quantity):
-        "*** YOUR CODE HERE ***"
+        
