@@ -1,4 +1,6 @@
 class Cat:
+    fuck = 0
+
     def __init__(self, name, owner, lives=9):
         self.is_alive = True
         self.name = name
@@ -6,7 +8,7 @@ class Cat:
         self.lives = lives
 
     def talk(self):
-        return self.name + ' says meow!'
+        return self.name + " says meow!"
 
     @classmethod
     def adopt_a_cat(cls, owner):
@@ -57,6 +59,7 @@ class Account:
     >>> a.time_to_retire(100)
     117
     """
+
     max_withdrawal = 10
     interest = 0.02
 
@@ -105,6 +108,7 @@ class FreeChecking(Account):
     >>> ch.withdraw(5)  # Not enough to cover fee + withdraw
     'Insufficient funds'
     """
+
     withdraw_fee = 1
     free_withdrawals = 2
 
