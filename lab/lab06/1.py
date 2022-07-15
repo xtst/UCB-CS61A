@@ -9,6 +9,3 @@ class Cat:
 
     def talk(self):
         return self.name + " says meow!"
-
-    def ppp(self):
-        super.fuck = 1
