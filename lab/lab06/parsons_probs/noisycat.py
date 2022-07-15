@@ -32,3 +32,32 @@ class NoisyCat(Cat):
 
     def talk(self):
         return super().talk() + " " + super().talk()
+
+    def adopt_a_cat(cls, owner):
+        """
+        Returns a new instance of a Cat.
+
+        This instance's owner is the given owner.
+        Its name and its number of lives is chosen programatically
+        based on the spec's noted behavior.
+
+        >>> cat1 = Cat.adopt_a_cat("Ifeoma")
+        >>> isinstance(cat1, Cat)
+        True
+        >>> cat1.owner
+        'Ifeoma'
+        >>> cat1.name
+        'Felix'
+        >>> cat1.lives
+        11
+        >>> cat2 = Cat.adopt_a_cat("Ay")
+        >>> cat2.owner
+        'Ay'
+        >>> cat2.name
+        'Grumpy'
+        >>> cat2.lives
+        8
+        """
+        cat_names = ["Felix", "Bugs", "Grumpy"]
+        "*** YOUR CODE HERE ***"
+        return cls(____, ____, ____)
