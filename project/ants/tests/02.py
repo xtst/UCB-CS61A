@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': 'ba9d5316d8a8cf38d31424fc9bc51ea9',
+          'answer': 'A single tile that an Ant can be placed on and that connects to other Places',
           'choices': [
             r"""
             A single tile that an Ant can be placed on and that connects to
@@ -16,19 +16,19 @@ test = {
             'Where the bees start out in the game'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What does a Place represent in the game?'
         },
         {
-          'answer': '010db6ca237fafb71ab37bd963f06870',
+          'answer': 'When q is constructed',
           'choices': [
             'When p is constructed',
             'When q is constructed',
             'Never, it is always set to None'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'p is a Place whose entrance is q and exit is r (q and r are not None). When is p.entrance first set to a non-None value?'
         },
