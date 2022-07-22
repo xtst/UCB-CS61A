@@ -180,6 +180,8 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     food_cost = 3
+    min_range = 0
+    max_range = float("inf")
     # health = 1
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
 
@@ -191,10 +193,12 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         temp = self.place
+        dist = 0
         while temp.is_hive == False:
-            if temp.bees != []:
+            if temp.bees != [] and self.min_range <= dist <= self.max_range:
                 return random_bee(temp.bees)
             temp = temp.entrance  # REPLACE THIS LINE
+            dist += 1
         return None
         # END Problem 3 and 4
 
@@ -229,7 +233,9 @@ class ShortThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
+    min_range = 0
+    max_range = 3
     # END Problem 4
 
 
@@ -240,7 +246,10 @@ class LongThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
+    min_range = 5
+    max_range = float("inf")
+
     # END Problem 4
 
 
