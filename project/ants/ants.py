@@ -108,6 +108,7 @@ class Ant(Insect):
     food_cost = 0
     is_container = False
     has_doubled = False
+    blocks_path = True
     # ADD CLASS ATTRIBUTES HERE
 
     def __init__(self, health=1):
@@ -530,6 +531,14 @@ class Bee(Insect):
     is_waterproof = True
     # OVERRIDE CLASS ATTRIBUTES HERE
 
+    is_slow = False
+    is_scared = False
+
+    slow_turns = 0
+    scared_turns = 0
+
+    has_been_scared = False
+
     def sting(self, ant):
         """Attack an ANT, reducing its health by 1."""
         ant.reduce_health(self.damage)
@@ -543,7 +552,11 @@ class Bee(Insect):
         """Return True if this Bee cannot advance to the next Place."""
         # Special handling for NinjaAnt
         # BEGIN Problem Optional 1
-        return self.place.ant is not None
+        if self.place.ant is None:
+            return False
+        if not self.place.ant.blocks_path:
+            return False
+        return True
         # END Problem Optional 1
 
     def action(self, gamestate):
@@ -555,10 +568,26 @@ class Bee(Insect):
         destination = self.place.exit
 
         # Extra credit: Special handling for bee direction
-        if self.blocked():
-            self.sting(self.place.ant)
-        elif self.health > 0 and destination is not None:
-            self.move_to(destination)
+        if self.is_scared:
+            destination = self.place.entrance
+            self.scared_turns -= 1
+        else:
+            destination = self.place.exit
+        if self.is_slow:
+            self.slow_turns -= 1
+            if self.slow_turns == 0:
+                self.is_slow = False
+            if gamestate.time % 2 == 0 and self.health > 0 and destination is not None:
+                self.move_to(destination)
+            elif self.is_scared:
+                self.scared_turns += 1
+        else:
+            if self.blocked():
+                self.sting(self.place.ant)
+            elif self.health > 0 and destination is not None:
+                self.move_to(destination)
+        if self.scared_turns == 0:
+            self.is_scared = False
 
     def add_to(self, place):
         place.bees.append(self)
@@ -571,7 +600,8 @@ class Bee(Insect):
     def slow(self, length):
         """Slow the bee for a further LENGTH turns."""
         # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
+        self.is_slow = True
+        self.slow_turns += length
         # END Problem EC
 
     def scare(self, length):
@@ -580,7 +610,12 @@ class Bee(Insect):
         go backwards LENGTH times.
         """
         # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
+        if self.has_been_scared:
+            return
+        else:
+            self.is_scared = True
+            self.scared_turns += length
+            self.has_been_scared = True
         # END Problem EC
 
 
@@ -599,12 +634,14 @@ class NinjaAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem Optional 1
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
+    blocks_path = False
     # END Problem Optional 1
 
     def action(self, gamestate):
         # BEGIN Problem Optional 1
-        "*** YOUR CODE HERE ***"
+        for bee in self.place.bees[:]:
+            bee.reduce_health(self.damage)
         # END Problem Optional 1
 
 
@@ -619,7 +656,7 @@ class SlowThrower(ThrowerAnt):
     name = "Slow"
     food_cost = 4
     # BEGIN Problem EC
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
     # END Problem EC
 
     def throw_at(self, target):
@@ -633,12 +670,13 @@ class ScaryThrower(ThrowerAnt):
     name = "Scary"
     food_cost = 6
     # BEGIN Problem EC
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
     # END Problem EC
 
     def throw_at(self, target):
         # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
+        if target:
+            target.scare(2)
         # END Problem EC
 
 
@@ -649,21 +687,40 @@ class LaserAnt(ThrowerAnt):
     food_cost = 10
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem Optional 2
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
+    damage = 2
     # END Problem Optional 2
 
     def __init__(self, health=1):
         super().__init__(health)
         self.insects_shot = 0
+        self.damage = LaserAnt.damage
 
     def insects_in_front(self):
         # BEGIN Problem Optional 2
-        return {}
+        # return {}
+        pos = self.place
+        distance = {}
+        dis = 0
+        while pos:
+            if not pos.is_hive:
+                for bee in pos.bees:
+                    distance[bee] = dis
+                if pos.ant is not None and pos.ant is not self:
+                    distance[pos.ant] = dis
+                    if pos.ant.is_container and pos.ant.ant_contained is not None:
+                        if dis != 0:
+                            distance[pos.ant.ant_contained] = dis
+            dis += 1
+            pos = pos.entrance
+        return distance
         # END Problem Optional 2
 
     def calculate_damage(self, distance):
         # BEGIN Problem Optional 2
-        return 0
+        # return 0
+        damage_result = self.damage - 0.0625 * self.insects_shot - 0.25 * distance
+        return damage_result if damage_result > 0 else 0
         # END Problem Optional 2
 
     def action(self, gamestate):
