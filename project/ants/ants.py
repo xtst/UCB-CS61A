@@ -289,6 +289,16 @@ class FireAnt(Ant):
 
 # BEGIN Problem 6
 # The WallAnt class
+class WallAnt(Ant):
+    implemented = True
+    name = "Wall"
+    food_cost = 4
+
+    def __init__(self, health=4):
+        """Create an Insect with a HEALTH quantity."""
+        super().__init__(health)
+
+
 # END Problem 6
 
 # BEGIN Problem 7
