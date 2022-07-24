@@ -107,6 +107,7 @@ class Ant(Insect):
     implemented = False  # Only implemented Ant classes should be instantiated
     food_cost = 0
     is_container = False
+    has_doubled = False
     # ADD CLASS ATTRIBUTES HERE
 
     def __init__(self, health=1):
@@ -158,7 +159,9 @@ class Ant(Insect):
     def double(self):
         """Double this ants's damage, if it has not already been doubled."""
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        if not self.has_doubled:
+            self.damage *= 2
+            self.has_doubled = True
         # END Problem 12
 
 
@@ -449,7 +452,7 @@ class ScubaThrower(ThrowerAnt):
 # BEGIN Problem 12
 
 
-class QueenAnt(Ant):  # You should change this line
+class QueenAnt(ScubaThrower):  # You should change this line
     # END Problem 12
     """The Queen of the colony. The game is over if a bee enters her place."""
 
@@ -457,7 +460,7 @@ class QueenAnt(Ant):  # You should change this line
     food_cost = 7
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 12
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
     # END Problem 12
 
     @classmethod
@@ -467,7 +470,10 @@ class QueenAnt(Ant):  # You should change this line
         returns None otherwise. Remember to call the construct() method of the superclass!
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        if gamestate.queen_exist == True:
+            return None
+        gamestate.queen_exist = True
+        return super().construct(gamestate)
         # END Problem 12
 
     def action(self, gamestate):
@@ -475,7 +481,19 @@ class QueenAnt(Ant):  # You should change this line
         in her tunnel.
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        super().action(gamestate)
+        now = self.place
+        while now.exit is not None:
+            if now.exit.ant is not None:
+                # if now.exit.ant.is_container == False:
+                # if type(now.exit.ant) is not FireAnt:
+                now.exit.ant.double()
+                if (
+                    now.exit.ant.is_container == True
+                    and now.exit.ant.ant_contained is not None
+                ):
+                    now.exit.ant.ant_contained.double()
+            now = now.exit
         # END Problem 12
 
     def reduce_health(self, amount):
@@ -483,8 +501,15 @@ class QueenAnt(Ant):  # You should change this line
         remaining, signal the end of the game.
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        super().reduce_health(amount)
+        if self.health <= 0:
+            ants_lose()
+
         # END Problem 12
+
+    def remove_from(self, place):
+        # return super().remove_from(place)
+        return None
 
 
 class AntRemover(Ant):
@@ -761,6 +786,7 @@ class GameState:
         self.ant_types = OrderedDict((a.name, a) for a in ant_types)
         self.dimensions = dimensions
         self.active_bees = []
+        self.queen_exist = False
         self.configure(beehive, create_places)
 
     def configure(self, beehive, create_places):
