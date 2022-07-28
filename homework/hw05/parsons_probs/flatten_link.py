@@ -10,7 +10,12 @@ def flatten_link(lnk):
     >>> flatten_link(deep_link)
     [1, 2, 3, 4, 5, 6]
     """
-    "*** YOUR CODE HERE ***"
+    i = lnk
+    ans = []
+    while i.rest != None:
+        ans.append(i.first)
+        i = i.rest
+    return ans
 
 
 class Link:
@@ -23,14 +28,14 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"

@@ -1,4 +1,4 @@
-passphrase = "*** PASSPHRASE HERE ***"
+passphrase = "6b11cc4633eb00f582dcc3a83f713aef58d85a1900d7cd9881d60e76"
 
 
 def midsem_survey(p):
