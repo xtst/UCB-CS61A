@@ -10,12 +10,11 @@ def flatten_link(lnk):
     >>> flatten_link(deep_link)
     [1, 2, 3, 4, 5, 6]
     """
-    i = lnk
-    ans = []
-    while i.rest != None:
-        ans.append(i.first)
-        i = i.rest
-    return ans
+    if lnk is Link.empty:
+        return []
+    if isinstance(lnk.first, Link):
+        return flatten_link(lnk.first) + flatten_link(lnk.rest)
+    return [lnk.first] + flatten_link(lnk.rest)
 
 
 class Link:
