@@ -20,7 +20,7 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    "*** YOUR CODE HERE ***"
+    count, prev, p = 0, 1, next(t)
 
 
 def merge(incr_a, incr_b):
@@ -171,6 +171,7 @@ def non_decrease_subseqs(s):
     >>> sorted(seqs2)
     [[], [1], [1], [1, 1], [1, 1, 2], [1, 2], [1, 2], [2]]
     """
+
     def subseq_helper(s, prev):
         if not s:
             return ____________________
@@ -180,13 +181,14 @@ def non_decrease_subseqs(s):
             a = ______________________
             b = ______________________
             return insert_into_all(________, ______________) + ________________
+
     return subseq_helper(____, ____)
 
 
 def card(n):
     """Return the playing card numeral as a string for a positive n <= 13."""
     assert type(n) == int and n > 0 and n <= 13, "Bad card n"
-    specials = {1: 'A', 11: 'J', 12: 'Q', 13: 'K'}
+    specials = {1: "A", 11: "J", 12: "Q", 13: "K"}
     return specials.get(n, str(n))
 
 
@@ -208,7 +210,7 @@ def shuffle(cards):
     >>> cards[:12]  # Should not be changed
     ['AH', 'AD', 'AS', 'AC', '2H', '2D', '2S', '2C', '3H', '3D', '3S', '3C']
     """
-    assert len(cards) % 2 == 0, 'len(cards) must be even'
+    assert len(cards) % 2 == 0, "len(cards) must be even"
     half = _______________
     shuffled = []
     for i in _____________:
@@ -332,6 +334,7 @@ class Link:
     >>> print(s)                             # Prints str(s)
     <5 7 <8 9>>
     """
+
     empty = ()
 
     def __init__(self, first, rest=empty):
@@ -341,17 +344,17 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"
 
 
 class Tree:
@@ -376,15 +379,16 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()
