@@ -39,7 +39,7 @@ def cumulative_mul(t):
         if t.is_leaf():
             return t.label
         for i in t.branches:
-            t.label = cumulative_mul(i) * t.label
+            t.label = cul(i) * t.label
         return t.label
 
     cul(t)
@@ -59,7 +59,12 @@ def has_cycle(link):
     >>> has_cycle(u)
     False
     """
-    "*** YOUR CODE HERE ***"
+    t = link
+    while t != Link.empty:
+        if t.rest == link:
+            return True
+        t = t.rest
+    return False
 
 
 def has_cycle_constant(link):
@@ -73,7 +78,12 @@ def has_cycle_constant(link):
     >>> has_cycle_constant(t)
     False
     """
-    "*** YOUR CODE HERE ***"
+    t = link
+    while t != Link.empty:
+        if t.rest == link:
+            return True
+        t = t.rest
+    return False
 
 
 class Link:
