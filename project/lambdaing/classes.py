@@ -168,7 +168,8 @@ class AICard(Card):
         True
         """
         # BEGIN Problem 3
-        "*** YOUR CODE HERE ***"
+        player.draw()
+        player.draw()
         # END Problem 3
         # You should add your implementation above this.
         print(f"{self.name} allows me to draw two cards!")
@@ -211,7 +212,12 @@ class TutorCard(Card):
         True
         """
         # BEGIN Problem 4
-        added = None
+        if len(player.hand) > 0:
+            added = player.hand[0].copy()
+        else:
+            added = None
+        if added != None:
+            player.hand.append(added)
         # END Problem 4
         # You should add your implementation above this.
         if added:
@@ -222,6 +228,9 @@ class TutorCard(Card):
         Create a copy of this card.
         """
         return TutorCard(self.name, self.attack, self.defense)
+
+    def power(self, opponent_card):
+        return super().power(opponent_card) - float("inf")
 
 
 class TACard(Card):
