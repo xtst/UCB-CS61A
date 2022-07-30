@@ -85,12 +85,12 @@ def deep_len(lnk):
     >>> deep_len(levels)
     5
     """
-    if ______________:
+    if lnk == Link.empty:
         return 0
-    elif ______________:
+    elif not isinstance(lnk, Link):
         return 1
     else:
-        return _________________________
+        return deep_len(lnk.first) + deep_len(lnk.rest)
 
 
 def add_d_leaves(t, v):
@@ -151,7 +151,18 @@ def add_d_leaves(t, v):
           10
         10
     """
-    "*** YOUR CODE HERE ***"
+
+    def dfs(root, depth, v):
+        if root.is_leaf():
+            for _ in range(depth):
+                root.branches.append(Tree(v))
+            return
+        for branch in root.branches:
+            dfs(branch, depth + 1, v)
+        for _ in range(depth):
+            root.branches.append(Tree(v))
+
+    dfs(t, 0, v)
 
 
 def insert_into_all(item, nested_list):
