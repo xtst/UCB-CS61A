@@ -260,6 +260,16 @@ class TACard(Card):
         """
         # BEGIN Problem 5
         best_card = None
+        max_num = float("-inf")
+        for i in player.hand:
+            if max_num < i.power(opponent_card):
+                max_num = i.power(opponent_card)
+                best_card = i
+        if best_card != None:
+            self.attack += best_card.attack
+            self.defense += best_card.defense
+            player.hand.remove(best_card)
+
         # END Problem 5
         if best_card:
             print(
@@ -301,6 +311,11 @@ class InstructorCard(Card):
         """
         # BEGIN Problem 6
         readd = None
+        self.attack -= 1000
+        self.defense -= 1000
+        if self.attack >= 0 and self.defense >= 0:
+            readd = self
+            player.hand.append(self)
         # END Problem 6
         # You should add your implementation above this.
         if readd:
