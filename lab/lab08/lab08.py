@@ -1,3 +1,6 @@
+from cmath import inf
+
+
 def repeated(t, k):
     """Return the first value in iterator T that appears K times in a row.
     Iterate through the items such that if the same iterator is passed into
@@ -20,7 +23,16 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    count, prev, p = 0, 1, next(t)
+    count = 1
+    prev = next(t)
+    for p in t:
+        if p == prev:
+            count += 1
+            if count == k:
+                return p
+        else:
+            count = 1
+        prev = p
 
 
 def merge(incr_a, incr_b):
@@ -42,7 +54,21 @@ def merge(incr_a, incr_b):
     """
     iter_a, iter_b = iter(incr_a), iter(incr_b)
     next_a, next_b = next(iter_a, None), next(iter_b, None)
-    "*** YOUR CODE HERE ***"
+    while next_a is not None and next_b is not None:
+        if next_a < next_b:
+            yield next_a
+            next_a = next(iter_a, None)
+        elif next_a != next_b:
+            yield next_b
+            next_b = next(iter_b, None)
+        else:
+            next_a = next(iter_a, None)
+    while next_a is not None:
+        yield next_a
+        next_a = next(iter_a, None)
+    while next_b is not None:
+        yield next_b
+        next_b = next(iter_b, None)
 
 
 def deep_len(lnk):
