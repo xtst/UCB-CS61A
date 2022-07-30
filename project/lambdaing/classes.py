@@ -88,7 +88,10 @@ class Player:
         self.deck = deck
         self.name = name
         # BEGIN Problem 2
-        "*** YOUR CODE HERE ***"
+        self.hand = []
+        for i in range(5):
+            self.hand.append(self.deck.draw())
+
         # END Problem 2
 
     def draw(self):
@@ -104,7 +107,8 @@ class Player:
         """
         assert not self.deck.is_empty(), "Deck is empty!"
         # BEGIN Problem 2
-        "*** YOUR CODE HERE ***"
+        self.hand.append(self.deck.cards[0])
+        self.deck.cards.pop(0)
         # END Problem 2
 
     def play(self, index):
@@ -122,7 +126,7 @@ class Player:
         2
         """
         # BEGIN Problem 2
-        "*** YOUR CODE HERE ***"
+        return self.hand.pop(index)
         # END Problem 2
 
     def display_hand(self):
