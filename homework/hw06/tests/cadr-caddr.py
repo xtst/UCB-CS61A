@@ -7,11 +7,10 @@ test = {
         {
           'code': r"""
           scm> (cddr '(1 2 3 4))
-          f69d877c9d1cc2439829045a806713f3
-          # locked
+          (3 4)
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
