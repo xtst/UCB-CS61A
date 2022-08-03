@@ -16,21 +16,19 @@ test = {
         {
           'code': r"""
           scm> (cadr '(1 2 3 4))
-          86902deeeb9755c15c199c7130a618ba
-          # locked
+          2
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           scm> (caddr '(1 2 3 4))
-          0f84c8951dcc7525fd37e710a2405e91
-          # locked
+          3
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         }
       ],

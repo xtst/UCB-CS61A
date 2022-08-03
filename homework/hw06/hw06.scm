@@ -1,12 +1,22 @@
 (define (cddr s) (cdr (cdr s)))
 
-(define (cadr s) 'YOUR-CODE-HERE)
+(define (cadr s) (car (cdr s)))
 
-(define (caddr s) 'YOUR-CODE-HERE)
+(define (caddr s) (car (cddr s)))
 
-(define (ascending? lst) 'YOUR-CODE-HERE)
+(define (ascending? lst) 
+(cond
+    ((null? (cdr lst)) #t)
+    ((null? lst) #t)
+    ((<= (car lst) (cadr lst) ) (ascending? (cdr lst)))
+    (else #f)
+))
 
-(define (interleave lst1 lst2) 'YOUR-CODE-HERE)
+(define (interleave lst1 lst2)
+
+    (if (null? lst1) lst2
+    (if (null? lst2) lst1 (cons (car lst1) (cons (car lst2) (interleave (cdr lst1) (cdr lst2))))
+)))
 
 (define (my-filter func lst) 'YOUR-CODE-HERE)
 
