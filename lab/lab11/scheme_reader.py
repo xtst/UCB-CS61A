@@ -52,7 +52,7 @@ def scheme_read(src):
         # END PROBLEM 2
     elif val == "'":
         # BEGIN PROBLEM 3
-        return Pair("quote", Pair(scheme_read(src.pop_first()), nil))
+        return Pair("quote", Pair(scheme_read(src), nil))
         # END PROBLEM 3
     elif val not in DELIMITERS:
         return val
