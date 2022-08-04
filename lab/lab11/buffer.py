@@ -2,6 +2,7 @@
 
 import math
 import sys
+from venv import create
 
 
 class EOL_TOKEN:
@@ -85,7 +86,8 @@ class Buffer:
         """
 
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        self.generator = self.create_generator(source)
+        self.current = next(self.generator)
         # END
 
     def create_generator(self, source):
@@ -94,7 +96,10 @@ class Buffer:
         yield EOL_TOKEN.
         """
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        for line in source:
+            for item in line:
+                yield item
+            yield EOL_TOKEN
         # END
 
     def pop_first(self):
@@ -104,7 +109,9 @@ class Buffer:
         the current token to be None.
         """
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        token = self.current
+        self.current = next(self.generator, None)
+        return token
         # END
 
     def end_of_line(self):
@@ -130,7 +137,7 @@ class InputReader:
     def __iter__(self):
         while True:
             yield input(self.prompt)
-            self.prompt = ' ' * len(self.prompt)
+            self.prompt = " " * len(self.prompt)
 
 
 class LineReader:
@@ -143,10 +150,13 @@ class LineReader:
 
     def __iter__(self):
         while self.lines:
-            line = self.lines.pop(0).strip('\n')
-            if (self.prompt is not None and line != "" and
-                not line.lstrip().startswith(self.comment)):
+            line = self.lines.pop(0).strip("\n")
+            if (
+                self.prompt is not None
+                and line != ""
+                and not line.lstrip().startswith(self.comment)
+            ):
                 print(self.prompt + line)
-                self.prompt = ' ' * len(self.prompt)
+                self.prompt = " " * len(self.prompt)
             yield line
         raise EOFError
