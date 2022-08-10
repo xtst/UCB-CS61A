@@ -4,8 +4,8 @@ import re
 def scientific_name(name):
     """
     Returns True for strings that are in the correct notation for scientific names;
-    i.e. contains a capital letter followed by a period or lowercase letters, 
-    followed by a space, followed by more lowercase letters. Returns False for 
+    i.e. contains a capital letter followed by a period or lowercase letters,
+    followed by a space, followed by more lowercase letters. Returns False for
     invalid strings.
 
     >>> scientific_name("T. rex")
@@ -25,7 +25,8 @@ def scientific_name(name):
     >>> scientific_name("I want a pet T. rex right now")
     False
     """
-    return bool(re.search(__________, name))
+
+    return bool(re.search(r"^[A-Z]([a-z]+|\.)\s[a-z]*$", name))
 
 
 import re
