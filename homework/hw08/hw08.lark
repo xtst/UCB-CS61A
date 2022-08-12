@@ -1,6 +1,6 @@
-link: "Link(" link_first link_rest ")"
+link: "Link(" link_first link_rest? ")"
 
-?link_first: Link|NUMBER
+?link_first: link|NUMBER
 
 ?link_rest: ", " link
 
