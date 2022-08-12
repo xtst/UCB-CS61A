@@ -6,7 +6,7 @@ Video: **21-fall**
 
 Homework, labs and slides: **22-spring**
 
-Here's the url: https://cs61a.org/
+Here's the url: https://inst.eecs.berkeley.edu/~cs61a/sp22/
 
 # BTW
 I ignore parsons/
